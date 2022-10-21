@@ -26,6 +26,16 @@ class Triangle {
       this.isValid = false;
     }
   }
+
+  static getValidTriangles(tArr) {
+    let valids = [];
+    for (let triangle of tArr) {
+      if (triangle.hasValidSideLength()) {
+        valids.push(triangle);
+      }
+    }
+    return valids;
+  }
 }
 
 module.exports = Triangle;

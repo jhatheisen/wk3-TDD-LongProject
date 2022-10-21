@@ -56,7 +56,7 @@ describe('Triangle', function(){
       let invalidT1 = new Triangle(50, 1, 100);
       let invalidT2 = new Triangle(100, 2, 3);
       let triangles = [triangle1, invalidT1, invalidT2, triangle2];
-      expect(Triangle.getValidTriangles())
+      expect(Triangle.getValidTriangles(triangles)).to.eql([triangle1, triangle2]);
     });
   });
 });
