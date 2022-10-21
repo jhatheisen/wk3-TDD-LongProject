@@ -13,10 +13,7 @@ class Triangle {
     let a = this.side1;
     let b = this.side2;
     let c = this.side3;
-    if (a + b <= c || a + c <= b || b + c <= a) {
-      return false;
-    }
-    return true;
+    return !(a + b <= c || a + c <= b || b + c <= a);
   }
 
   validate() {
@@ -38,4 +35,40 @@ class Triangle {
   }
 }
 
-module.exports = Triangle;
+class Scalene extends Triangle {
+  constructor(side1, side2, side3) {
+    super(side1, side2, side3);
+    super.validate();
+  }
+
+  isScalene() {
+    let a = this.side1;
+    let b = this.side2;
+    let c = this.side3;
+    return (!(a === b || b === c || a === c));
+  }
+
+  validate() {
+    this.isValidScalene = this.isScalene();
+  }
+}
+
+class Isosceles extends Triangle {
+  constructor(side1, side2, side3) {
+    super(side1, side2, side3);
+    super.validate();
+  }
+
+  isIsosceles() {
+    let a = this.side1;
+    let b = this.side2;
+    let c = this.side3;
+    return ((a === b || b === c || a === c) && !(a === b && a === c) && this.isValid);
+  }
+
+  validate() {
+    this.isValidIsosceles = this.isIsosceles();
+  }
+}
+
+module.exports = {Triangle, Scalene, Isosceles};

@@ -1,7 +1,7 @@
 const chai = require('chai');
 const { expect } = require('chai');
 
-const Triangle = require('../problems/triangle');
+const {Triangle, Scalene, Isosceles} = require('../problems/triangle');
 
 describe('Triangle', function(){
 
@@ -59,4 +59,89 @@ describe('Triangle', function(){
       expect(Triangle.getValidTriangles(triangles)).to.eql([triangle1, triangle2]);
     });
   });
+});
+
+describe('Scalene', function(){
+
+  let scalene1;
+  let invalidS;
+
+  beforeEach(() => {
+    scalene1 = new Scalene(10,11,12);
+    invalidS = new Scalene(100,1,1);
+  });
+
+  it ('Should inherit side properties from the triangle class and create an isValid property', function(){
+    expect(scalene1.side1).to.eql(10);
+    expect(scalene1.side2).to.eql(11);
+    expect(scalene1.side3).to.eql(12);
+    expect(scalene1.isValid).to.exist;
+  });
+
+  it ('Should have an isValid property that is a boolean from running validate() on the instance', function(){
+    expect(scalene1.isValid).to.eql(true);
+    expect(invalidS.isValid).to.eql(false);
+  });
+
+  describe('isScalene()', function(){
+
+    it ('Should return true if the triangle is scalene, otherwise return false (all sides different length)', function(){
+      expect(scalene1.isScalene()).to.eql(true);
+      expect(invalidS.isScalene()).to.eql(false);
+    });
+  });
+
+  describe('validate()', function(){
+
+    it ('Should add an isValidScalene Property to instance equal to running isScalene() on triangle', function(){
+      scalene1.validate();
+      invalidS.validate();
+      expect(scalene1.isValidScalene).to.eql(true);
+      expect(invalidS.isValidScalene).to.eql(false);
+    });
+  });
+});
+
+describe('Isosceles', function(){
+
+  let isosceles1;
+  let invalidI;
+
+  beforeEach(() => {
+    isosceles1 = new Isosceles(10,10,8);
+    invalidI = new Isosceles(1,100,1);
+  });
+
+  it ('Should inherit side properties from the triangle class and create an isValid property', function(){
+    expect(isosceles1.side1).to.eql(10);
+    expect(isosceles1.side2).to.eql(10);
+    expect(isosceles1.side3).to.eql(8);
+    expect(isosceles1.isValid).to.exist;
+  });
+
+  it ('Should have an isValid property that is a boolean from running validate() on the instance', function(){
+    expect(isosceles1.isValid).to.eql(true);
+    expect(invalidI.isValid).to.eql(false);
+  });
+
+  describe('isIsosceles()', function(){
+
+    it ('Should return true if the triangle is Isosceles, otherwise return false (2 sides same length)', function(){
+      let invalidI2 = new Isosceles(1, 1, 1);
+      expect(isosceles1.isIsosceles()).to.eql(true);
+      expect(invalidI.isIsosceles()).to.eql(false);
+      expect(invalidI2.isIsosceles()).to.eql(false);
+    });
+  });
+
+  describe('validate()', function(){
+
+    it ('Should add an isValidIsosceles Property to instance equal to running isIsosceles() on triangle', function(){
+      isosceles1.validate();
+      invalidI.validate();
+      expect(isosceles1.isValidIsosceles).to.eql(true);
+      expect(invalidI.isValidIsosceles).to.eql(false);
+    });
+  });
+
 });
